@@ -43,8 +43,24 @@ prompt=[
     also the sql code should not have ``` in beginning or end and sql word in output
 
     """
-
-
 ]
 
-    
+## Streamlit App
+st.set_page_config(page_title="I can retrieve Any SQL Query",page_icon="🔍",layout="centered")
+
+st.header("Gemini App to retriecve SQL Data")
+
+question=st.text_input("input:",key="input")
+
+submit=st.button("Ask the question")
+
+## If the submit button is clicked
+if submit:
+    response=get_gemini_response(question,prompt)
+    print(response)
+    data=read_sql_query(response,"student.db")
+    st.subheader("The response is:")
+    for row in data:
+        st.header(row)
+            
+
